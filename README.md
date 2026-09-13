@@ -1,4 +1,4 @@
-# Momentum — Personal Productivity & Habit Tracking
+# Momentum -- Personal Productivity & Habit Tracking
 
 A full-stack productivity operating system: flexible habit scheduling, real
 vacation-mode/pause handling, occurrence-based streaks, tasks, goals, a
@@ -300,5 +300,6 @@ notifications are all plain REST + JSON. A React Native app would:
    FCM/APNs — the `Notification` rows and scheduling logic already exist
    and are channel-agnostic.
 3. Reuse every other endpoint as-is.
-#   d a i l y - t r a c k e r  
+#   d a i l y - t r a c k e r 
+ 
  
