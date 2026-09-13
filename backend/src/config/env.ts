@@ -10,13 +10,27 @@ function required(name: string, fallback?: string): string {
   return value;
 }
 
+/**
+ * CLIENT_URL accepts a comma-separated list so a deployment can allow more
+ * than one frontend origin at once - e.g. a stable production domain plus
+ * the per-deploy preview URLs hosts like Vercel generate, which otherwise
+ * break CORS every time the frontend is redeployed under a new hostname.
+ */
+function parseClientUrls(): string[] {
+  return (process.env.CLIENT_URL ?? "http://localhost:5173")
+    .split(",")
+    .map((url) => url.trim().replace(/\/+$/, ""))
+    .filter(Boolean);
+}
+
 export const env = {
   nodeEnv: process.env.NODE_ENV ?? "development",
   isProduction: process.env.NODE_ENV === "production",
   isTest: process.env.NODE_ENV === "test",
   port: Number(process.env.PORT ?? 5000),
   apiUrl: process.env.API_URL ?? "http://localhost:5000",
-  clientUrl: process.env.CLIENT_URL ?? "http://localhost:5173",
+  clientUrl: parseClientUrls()[0],
+  clientUrls: parseClientUrls(),
 
   mongodbUri: required("MONGODB_URI", "mongodb://127.0.0.1:27017/productivity_tracker"),
 
