@@ -1,8 +1,18 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 import { useAuthStore } from "../stores/authStore";
 
+/**
+ * Defaults to the relative "/api", which only resolves correctly in local
+ * dev via Vite's dev-server proxy (see vite.config.ts) or in a deployment
+ * where the frontend and backend share one origin. Once they're on
+ * different domains (e.g. Vercel + Render), VITE_API_URL must be set at
+ * build time to the backend's full ".../api" URL - Vite inlines env vars
+ * into the static bundle, so this cannot be changed after the build.
+ */
+const API_BASE_URL = import.meta.env.VITE_API_URL || "/api";
+
 export const apiClient = axios.create({
-  baseURL: "/api",
+  baseURL: API_BASE_URL,
   withCredentials: true, // send the httpOnly refresh cookie
 });
 
@@ -17,7 +27,7 @@ let refreshPromise: Promise<string | null> | null = null;
 async function refreshAccessToken(): Promise<string | null> {
   try {
     const res = await axios.post(
-      "/api/auth/refresh",
+      `${API_BASE_URL}/auth/refresh`,
       {},
       { withCredentials: true }
     );
