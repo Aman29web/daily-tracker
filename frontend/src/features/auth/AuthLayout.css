@@ -1,0 +1,120 @@
+.auth-screen {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  background: var(--bg);
+}
+
+.auth-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 48px;
+  background: var(--gradient-primary);
+  color: #fff;
+  overflow: hidden;
+}
+
+.auth-hero::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.18), transparent 55%),
+    radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.14), transparent 50%);
+}
+
+.auth-hero-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 18px;
+  position: relative;
+}
+.auth-hero-brand-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-hero-copy {
+  position: relative;
+  max-width: 440px;
+}
+.auth-hero-copy h1 {
+  font-family: "Manrope", var(--font-sans);
+  font-size: 40px;
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+.auth-hero-copy p {
+  font-size: 15px;
+  opacity: 0.92;
+  line-height: 1.6;
+}
+
+.auth-hero-stats {
+  position: relative;
+  display: flex;
+  gap: 28px;
+}
+.auth-hero-stats div strong {
+  display: block;
+  font-size: 22px;
+  font-weight: 800;
+}
+.auth-hero-stats div span {
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.auth-form-side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+
+.auth-form-card {
+  width: 100%;
+  max-width: 380px;
+}
+
+.auth-form-card h2 {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+.auth-form-card > p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 26px;
+}
+
+.auth-form-footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--text-secondary);
+}
+.auth-form-footer a {
+  color: var(--primary-600);
+  font-weight: 700;
+}
+
+@media (max-width: 860px) {
+  .auth-screen {
+    grid-template-columns: 1fr;
+  }
+  .auth-hero {
+    display: none;
+  }
+}

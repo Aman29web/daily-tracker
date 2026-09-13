@@ -1,0 +1,82 @@
+.goals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.goal-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+.goal-card-header h3 {
+  font-size: 15px;
+  font-weight: 700;
+}
+.goal-card-deadline {
+  font-size: 11.5px;
+  color: var(--text-tertiary);
+  font-weight: 600;
+}
+
+.goal-card-body {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 16px 0;
+}
+
+.goal-card-numbers {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.goal-card-numbers strong {
+  font-size: 17px;
+  font-weight: 800;
+}
+.goal-card-numbers span {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  font-weight: 600;
+}
+
+.goal-pace {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  width: fit-content;
+}
+.goal-pace.on-track {
+  color: var(--success-600);
+}
+.goal-pace.off-track {
+  color: var(--danger-500);
+}
+
+.goal-card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.goal-card-auto-note {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+.goal-card-completed {
+  border-color: rgba(16, 185, 129, 0.3);
+  background: linear-gradient(180deg, rgba(16, 185, 129, 0.06), transparent 60%);
+}
+
+.goal-card-completed-date {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--success-600);
+}

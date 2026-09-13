@@ -1,0 +1,41 @@
+.history-strip {
+  display: grid;
+  grid-template-columns: repeat(21, 1fr);
+  gap: 4px;
+}
+.history-strip-loading {
+  height: 56px;
+}
+
+.history-cell {
+  aspect-ratio: 1;
+  border-radius: 3px;
+  background: var(--bg-inset);
+}
+
+.s-completed {
+  background: var(--success-500);
+}
+.s-missed {
+  background: var(--danger-400);
+}
+.s-skipped {
+  background: var(--warning-400);
+}
+.s-paused {
+  background: var(--info-500);
+  opacity: 0.5;
+}
+.s-rest,
+.s-none {
+  background: var(--bg-inset);
+}
+.s-pending {
+  background: var(--border-strong);
+}
+
+@media (max-width: 560px) {
+  .history-strip {
+    grid-template-columns: repeat(14, 1fr);
+  }
+}

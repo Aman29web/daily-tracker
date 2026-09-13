@@ -1,0 +1,145 @@
+.habit-check-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 4px;
+  border-bottom: 1px solid var(--border);
+}
+.habit-check-item:last-child {
+  border-bottom: none;
+}
+.habit-check-item.inert {
+  opacity: 0.55;
+}
+
+.habit-check-circle {
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--border-strong);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform var(--duration-fast) var(--ease), border-color var(--duration-fast) var(--ease);
+}
+.habit-check-circle:active {
+  transform: scale(0.88);
+}
+.habit-check-circle:disabled {
+  cursor: default;
+}
+.habit-check-circle.done {
+  border-color: transparent;
+}
+
+.habit-check-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.habit-check-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.habit-check-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.habit-check-status {
+  font-size: 11.5px;
+  color: var(--text-tertiary);
+  font-weight: 600;
+}
+
+.habit-check-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.habit-check-progress-track {
+  flex: 1;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--bg-inset);
+  overflow: hidden;
+  max-width: 140px;
+}
+.habit-check-progress-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+}
+.habit-check-progress-label {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.habit-check-streak {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--warning-500);
+  flex-shrink: 0;
+}
+
+.habit-check-stepper {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.habit-check-menu-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.habit-check-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  padding: 4px;
+  width: 150px;
+  z-index: 50;
+}
+.habit-check-menu button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  text-align: left;
+}
+.habit-check-menu button:hover {
+  background: var(--bg-hover);
+  color: var(--text);
+}

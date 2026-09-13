@@ -1,0 +1,79 @@
+.focus-today-total {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  background: var(--bg-inset);
+  padding: 8px 12px;
+  border-radius: var(--radius-full);
+}
+
+.focus-main-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  margin-bottom: 20px;
+  min-height: 320px;
+}
+
+.focus-start,
+.focus-active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 360px;
+}
+
+.focus-duration-picker {
+  display: flex;
+  gap: 8px;
+}
+.focus-duration-btn {
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+  background: var(--bg-inset);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+.focus-duration-btn.active {
+  background: var(--gradient-primary);
+  border-color: transparent;
+  color: #fff;
+}
+
+.focus-slider {
+  width: 100%;
+}
+
+.focus-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.focus-active-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.focus-session-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 4px;
+  font-size: 13px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border);
+}
+.focus-session-row:last-child {
+  border-bottom: none;
+}

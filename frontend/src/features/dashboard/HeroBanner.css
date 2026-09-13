@@ -1,0 +1,70 @@
+.hero-banner {
+  position: relative;
+  border-radius: var(--radius-xl);
+  padding: 30px 32px;
+  background: var(--gradient-primary);
+  color: #fff;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.hero-banner-glow {
+  position: absolute;
+  inset: -30%;
+  background: radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.2), transparent 55%),
+    radial-gradient(circle at 85% 75%, rgba(255, 255, 255, 0.14), transparent 50%);
+  pointer-events: none;
+}
+
+.hero-banner-content {
+  position: relative;
+}
+
+.hero-banner-date {
+  font-size: 12.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.85;
+}
+
+.hero-banner h1 {
+  font-family: "Manrope", var(--font-sans);
+  font-size: 27px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin: 8px 0 20px;
+  max-width: 640px;
+  line-height: 1.25;
+}
+
+.hero-banner-stats {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.hero-banner-stats strong {
+  display: block;
+  font-size: 22px;
+  font-weight: 800;
+}
+.hero-banner-stats span {
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.hero-divider {
+  width: 1px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 640px) {
+  .hero-banner {
+    padding: 22px 20px;
+  }
+  .hero-banner h1 {
+    font-size: 21px;
+  }
+}

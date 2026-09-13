@@ -1,0 +1,60 @@
+.task-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: grab;
+}
+
+.task-card-check {
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--border-strong);
+  background: transparent;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.task-card-check.done {
+  background: var(--success-500);
+  border-color: var(--success-500);
+}
+
+.task-card-title {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.task-card-title.done {
+  text-decoration: line-through;
+  color: var(--text-tertiary);
+}
+
+.task-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+.task-card-due {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  color: var(--text-tertiary);
+  font-weight: 600;
+}
+
+.task-card-star {
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+}
+.task-card-star.active {
+  color: var(--warning-500);
+}

@@ -1,0 +1,122 @@
+.calendar-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.calendar-nav strong {
+  font-size: 14px;
+  min-width: 130px;
+  text-align: center;
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 8px;
+}
+.calendar-weekdays span {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.calendar-cell {
+  aspect-ratio: 1;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-inset);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  cursor: pointer;
+  position: relative;
+  color: var(--text);
+  transition: transform var(--duration-fast) var(--ease);
+}
+.calendar-cell:hover {
+  transform: scale(1.04);
+}
+.calendar-cell.empty {
+  border: none;
+  background: none;
+  cursor: default;
+  pointer-events: none;
+}
+.calendar-cell.today {
+  box-shadow: 0 0 0 2px var(--primary-500);
+}
+
+.calendar-cell-date {
+  font-size: 12px;
+  font-weight: 700;
+}
+.calendar-cell-score {
+  font-size: 9px;
+  font-weight: 700;
+  opacity: 0.85;
+}
+.calendar-cell-dot {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--primary-500);
+}
+
+.heat-0 {
+  background: var(--bg-inset);
+  color: var(--text-tertiary);
+}
+.heat-1 {
+  background: rgba(16, 185, 129, 0.18);
+  color: var(--text);
+}
+.heat-2 {
+  background: rgba(16, 185, 129, 0.38);
+  color: var(--text);
+}
+.heat-3 {
+  background: rgba(16, 185, 129, 0.62);
+  color: #06341f;
+}
+.heat-4 {
+  background: var(--success-500);
+  color: #fff;
+}
+[data-theme="dark"] .heat-3 {
+  color: #eafff3;
+}
+
+.calendar-legend {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  font-size: 11px;
+  color: var(--text-tertiary);
+  font-weight: 600;
+}
+.calendar-legend i {
+  width: 13px;
+  height: 13px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+@media (max-width: 560px) {
+  .calendar-cell-score {
+    display: none;
+  }
+}

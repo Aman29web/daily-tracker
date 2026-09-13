@@ -1,0 +1,40 @@
+import { Router } from "express";
+import authRoutes from "./authRoutes";
+import habitRoutes from "./habitRoutes";
+import planRoutes from "./planRoutes";
+import pauseRoutes from "./pauseRoutes";
+import taskRoutes from "./taskRoutes";
+import goalRoutes from "./goalRoutes";
+import focusRoutes from "./focusRoutes";
+import journalRoutes from "./journalRoutes";
+import moodRoutes from "./moodRoutes";
+import achievementRoutes from "./achievementRoutes";
+import notificationRoutes from "./notificationRoutes";
+import dashboardRoutes from "./dashboardRoutes";
+import calendarRoutes from "./calendarRoutes";
+import analyticsRoutes from "./analyticsRoutes";
+import aiRoutes from "./aiRoutes";
+import searchRoutes from "./searchRoutes";
+import settingsRoutes from "./settingsRoutes";
+
+const router = Router();
+
+router.use("/auth", authRoutes);
+router.use("/habits", habitRoutes);
+router.use("/plans", planRoutes);
+router.use("/pauses", pauseRoutes);
+router.use("/tasks", taskRoutes);
+router.use("/goals", goalRoutes);
+router.use("/focus", focusRoutes);
+router.use("/journal", journalRoutes);
+router.use("/mood", moodRoutes);
+router.use("/achievements", achievementRoutes);
+router.use("/notifications", notificationRoutes);
+router.use("/dashboard", dashboardRoutes);
+router.use("/calendar", calendarRoutes);
+router.use("/analytics", analyticsRoutes);
+router.use("/ai", aiRoutes);
+router.use("/search", searchRoutes);
+router.use("/settings", settingsRoutes);
+
+export default router;

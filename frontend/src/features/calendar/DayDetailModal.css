@@ -1,0 +1,72 @@
+.day-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.day-detail-score {
+  text-align: center;
+  padding: 16px;
+  background: var(--gradient-subtle);
+  border-radius: var(--radius-lg);
+}
+.day-detail-score strong {
+  display: block;
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--primary-600);
+}
+.day-detail-score span {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  font-weight: 600;
+}
+
+.day-detail-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.day-detail-stats > div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.day-detail-section h4 {
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-tertiary);
+  margin-bottom: 8px;
+}
+
+.day-detail-habit-row,
+.day-detail-task-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.day-detail-habit-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.day-detail-journal-text {
+  font-size: 13px;
+  font-style: italic;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}

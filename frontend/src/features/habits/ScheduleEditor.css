@@ -1,0 +1,62 @@
+.schedule-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.schedule-type-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.schedule-type-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-inset);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color var(--duration-fast) var(--ease), background var(--duration-fast) var(--ease);
+}
+.schedule-type-btn strong {
+  font-size: 13px;
+  font-weight: 700;
+}
+.schedule-type-btn span {
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+.schedule-type-btn.active {
+  border-color: var(--primary-400);
+  background: var(--primary-50);
+}
+[data-theme="dark"] .schedule-type-btn.active {
+  background: rgba(99, 102, 241, 0.14);
+}
+
+.schedule-days-row {
+  display: flex;
+  gap: 6px;
+}
+
+.schedule-day-chip {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+  background: var(--bg-inset);
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.schedule-day-chip.active {
+  background: var(--gradient-primary);
+  border-color: transparent;
+  color: #fff;
+}
