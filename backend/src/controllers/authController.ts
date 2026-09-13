@@ -20,10 +20,19 @@ import { logger } from "../config/logger";
 
 const REFRESH_COOKIE = "refreshToken";
 
+/**
+ * "lax" works fine in local dev (frontend/backend differ only by port,
+ * which browsers still treat as the same site) but browsers refuse to
+ * attach a "lax" cookie to the cross-site fetch/XHR calls a separately
+ * hosted frontend (e.g. Vercel) makes to this API (e.g. Render) - the
+ * refresh call would silently stop sending the cookie at all. Cross-site
+ * cookies require "none", which in turn requires `secure: true` (only
+ * possible over HTTPS, which is why this is gated on production).
+ */
 const refreshCookieOptions: CookieOptions = {
   httpOnly: true,
   secure: env.cookieSecure,
-  sameSite: "lax",
+  sameSite: env.isProduction ? "none" : "lax",
   path: "/api/auth",
   maxAge: 30 * 24 * 60 * 60 * 1000,
 };

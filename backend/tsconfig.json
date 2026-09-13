@@ -3,13 +3,8 @@
     "target": "ES2022",
     "lib": ["ES2022"],
     "module": "commonjs",
-    "moduleResolution": "node",
     "rootDir": "src",
     "outDir": "dist",
-    "baseUrl": "src",
-    "paths": {
-      "@/*": ["*"]
-    },
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
