@@ -1,4 +1,4 @@
-# Momentum - Personal Productivity & Habit Tracking
+# Momentum - Personal Productivity & Habit Tracking -
 
 A full-stack productivity operating system: flexible habit scheduling, real
 vacation-mode/pause handling, occurrence-based streaks, tasks, goals, a
