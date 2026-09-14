@@ -48,11 +48,18 @@ function publicUser(user: IUser) {
   };
 }
 
+/**
+ * refreshToken is included in the JSON body (in addition to the httpOnly
+ * cookie) so that clients with no cookie jar - the mobile app - can persist
+ * it themselves (expo-secure-store) and send it explicitly on /auth/refresh.
+ * The web app never reads this field and keeps relying solely on the
+ * cookie, so this is purely additive.
+ */
 export const register = catchAsync(async (req: Request, res: Response) => {
   const user = await registerUser(req.body);
   const { accessToken, refreshToken } = issueTokenPair(user);
   res.cookie(REFRESH_COOKIE, refreshToken, refreshCookieOptions);
-  sendSuccess(res, { user: publicUser(user), accessToken }, "Account created", 201);
+  sendSuccess(res, { user: publicUser(user), accessToken, refreshToken }, "Account created", 201);
 });
 
 export const login = catchAsync(async (req: Request, res: Response) => {
@@ -60,7 +67,7 @@ export const login = catchAsync(async (req: Request, res: Response) => {
   const user = await authenticateUser(email, password);
   const { accessToken, refreshToken } = issueTokenPair(user);
   res.cookie(REFRESH_COOKIE, refreshToken, refreshCookieOptions);
-  sendSuccess(res, { user: publicUser(user), accessToken }, "Logged in");
+  sendSuccess(res, { user: publicUser(user), accessToken, refreshToken }, "Logged in");
 });
 
 export const logout = catchAsync(async (req: Request, res: Response) => {
@@ -69,7 +76,8 @@ export const logout = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const refresh = catchAsync(async (req: Request, res: Response) => {
-  const token = req.cookies?.[REFRESH_COOKIE];
+  // Cookie for web; falls back to a body-supplied token for mobile, which has no cookie jar.
+  const token = req.cookies?.[REFRESH_COOKIE] ?? req.body?.refreshToken;
   if (!token) throw ApiError.unauthorized("No refresh token", "NO_REFRESH_TOKEN");
 
   let payload;
@@ -86,7 +94,7 @@ export const refresh = catchAsync(async (req: Request, res: Response) => {
 
   const { accessToken, refreshToken } = issueTokenPair(user);
   res.cookie(REFRESH_COOKIE, refreshToken, refreshCookieOptions);
-  sendSuccess(res, { user: publicUser(user), accessToken }, "Token refreshed");
+  sendSuccess(res, { user: publicUser(user), accessToken, refreshToken }, "Token refreshed");
 });
 
 export const getMe = catchAsync(async (req: Request, res: Response) => {
@@ -116,7 +124,7 @@ export const changePassword = catchAsync(async (req: Request, res: Response) => 
 
   const { accessToken, refreshToken } = issueTokenPair(user);
   res.cookie(REFRESH_COOKIE, refreshToken, refreshCookieOptions);
-  sendSuccess(res, { accessToken }, "Password changed");
+  sendSuccess(res, { accessToken, refreshToken }, "Password changed");
 });
 
 /**

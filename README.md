@@ -22,16 +22,16 @@ Core loop: **Plan → Execute → Track → Reflect → Analyze → Improve.**
 - [Key business rules](#key-business-rules)
 - [Authentication flow](#authentication-flow)
 - [Deployment](#deployment)
-- [Future React Native integration](#future-react-native-integration)
+- [React Native integration](#react-native-integration)
 
 ## Architecture
 
 ```
-React Web (Vite)  ──┐
-                     ├──►  Node/Express REST API  ──►  MongoDB
-React Native (future)┘            │
-                                   └──► AIService / NotificationService
-                                        (provider-agnostic abstractions)
+React Web (Vite)   ──┐
+                      ├──►  Node/Express REST API  ──►  MongoDB
+Expo / React Native ──┘            │
+                                    └──► AIService / NotificationService
+                                         (provider-agnostic abstractions)
 ```
 
 The backend is a standalone REST API with no knowledge of any particular
@@ -49,6 +49,10 @@ Vitest + Supertest + mongodb-memory-server for tests.
 **Frontend:** React 18, TypeScript, Vite, React Router, TanStack Query,
 Framer Motion, Recharts, React Hook Form + Zod, Axios, Zustand, plain CSS
 with a small design-token system (light/dark themes).
+
+**Mobile:** Expo (React Native), TypeScript, Expo Router, TanStack Query,
+React Hook Form + Zod, Axios, Zustand, react-native-svg + react-native-gifted-charts,
+react-native-reanimated.
 
 ## Project structure
 
@@ -77,6 +81,14 @@ frontend/
     stores/          Zustand stores (auth, theme, ui)
     styles/          design tokens + global CSS
     types/           shared TypeScript types mirroring API responses
+mobile/
+  app/               Expo Router file-based routes (tabs, more-menu stack, auth)
+  src/
+    api/             axios client + typed endpoint modules (mirrors frontend/src/api)
+    components/ui/   shared primitives (Modal, BottomSheet, ProgressRing, DynamicIcon…)
+    features/        one folder per domain, mirrors frontend/src/features
+    stores/          Zustand stores (auth, theme, ui, toast)
+    types/           shared TypeScript types (ported from frontend/src/types)
 ```
 
 ## Getting started
@@ -112,6 +124,19 @@ npm run dev                 # http://localhost:5173
 
 The Vite dev server proxies `/api` to `http://localhost:5000` (see
 `frontend/vite.config.ts`), so no CORS configuration is needed locally.
+
+### Mobile
+
+```bash
+cd mobile
+npm install
+cp .env.example .env       # set EXPO_PUBLIC_API_URL to your backend's LAN IP
+npx expo start              # scan the QR code with Expo Go
+```
+
+Expo Go on a physical device/simulator can't reach `localhost` on your dev
+machine — `EXPO_PUBLIC_API_URL` must point at your machine's LAN IP (e.g.
+`http://192.168.1.23:5000/api`). See `mobile/README.md` for details.
 
 ### Running tests
 
@@ -287,19 +312,24 @@ down:
   production API origin via a reverse proxy or by adjusting the axios
   `baseURL`.
 
-## Future React Native integration
+## React Native integration
 
 Nothing in the backend assumes a browser: authentication, habits, plans,
 tasks, goals, journal, focus sessions, analytics, achievements, and
-notifications are all plain REST + JSON. A React Native app would:
+notifications are all plain REST + JSON. See `mobile/` for the Expo Router
+app that consumes this same API:
 
-1. Swap the httpOnly-cookie refresh flow for a securely-stored refresh
-   token (e.g. `expo-secure-store`) sent explicitly, since mobile has no
-   browser cookie jar.
-2. Implement `notifications/NotificationProvider.ts`'s `push` case against
-   FCM/APNs — the `Notification` rows and scheduling logic already exist
-   and are channel-agnostic.
-3. Reuse every other endpoint as-is.
+1. The httpOnly-cookie refresh flow is swapped for a securely-stored
+   refresh token (`expo-secure-store`) sent explicitly, since mobile has no
+   browser cookie jar — `register`/`login`/`refresh`/`changePassword` now
+   also return `refreshToken` in the JSON body for this purpose (additive;
+   the web app is unaffected since it never reads that field).
+2. `notifications/NotificationProvider.ts`'s `push` case (FCM/APNs) is
+   **not yet implemented** — the mobile app's Notifications screen runs
+   against the existing in-app rows only, refetched on an interval. The
+   `Notification` model and scheduling logic are already channel-agnostic
+   and ready for this.
+3. Every other endpoint is reused as-is.
 #   d a i l y - t r a c k e r 
  
  
