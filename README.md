@@ -1,6 +1,6 @@
 # Momentum - Personal Productivity & Habit Tracking -
 
-A full-stack productivity operating system: flexible habit scheduling, real
+A full-stack productivity operating system: flexible habit scheduling, real -
 vacation-mode/pause handling, occurrence-based streaks, tasks, goals, a
 Pomodoro-style focus timer, journaling, calendar heatmaps, analytics, an
 achievement engine, a channel-agnostic notification architecture, and a
