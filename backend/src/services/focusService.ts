@@ -3,7 +3,7 @@ import { FocusSession, IFocusSession } from "../models/FocusSession";
 import { ApiError } from "../utils/ApiError";
 import { todayInTimezone } from "../utils/dateUtils";
 import { recalculateGoalProgress } from "./goalService";
-import { evaluateAchievementsForUser } from "./achievementService";
+import { evaluateAchievementsInBackground } from "./achievementService";
 
 export async function getOwnedSession(userId: string, sessionId: string): Promise<IFocusSession> {
   const session = await FocusSession.findOne({ _id: sessionId, userId });
@@ -70,7 +70,7 @@ async function finalizeSession(
 
   if (status === "completed") {
     if (session.goalId) await recalculateGoalProgress(userId, session.goalId.toString());
-    if (timezone) await evaluateAchievementsForUser(userId, timezone);
+    if (timezone) evaluateAchievementsInBackground(userId, timezone);
   }
   return session;
 }

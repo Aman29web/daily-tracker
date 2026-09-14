@@ -115,7 +115,6 @@ export default function HabitDetailPage() {
           onSkip={() => checkIn.mutate({ date: today_, action: "skip" })}
           onMiss={() => checkIn.mutate({ date: today_, action: "miss" })}
           onIncrement={(delta) => checkIn.mutate({ date: today_, action: "increment", value: delta })}
-          disabled={checkIn.isPending}
         />
       </section>
 

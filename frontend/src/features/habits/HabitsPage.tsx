@@ -126,7 +126,6 @@ function HabitRow({ item }: { item: HabitWithStats }) {
         onSkip={() => checkIn.mutate({ date: today, action: "skip" })}
         onMiss={() => checkIn.mutate({ date: today, action: "miss" })}
         onIncrement={(delta) => checkIn.mutate({ date: today, action: "increment", value: delta })}
-        disabled={checkIn.isPending}
       />
       <Link to={`/habits/${habit._id}`} className="habits-row-detail-link" aria-label={`Open ${habit.name} details`}>
         <ChevronRight size={16} />

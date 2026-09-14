@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { catchAsync } from "../utils/catchAsync";
 import { buildPagination, sendSuccess } from "../utils/ApiResponse";
 import * as planService from "../services/planService";
-import { evaluateAchievementsForUser } from "../services/achievementService";
+import { evaluateAchievementsInBackground } from "../services/achievementService";
 
 export const listPlans = catchAsync(async (req: Request, res: Response) => {
   const { page, limit, isArchived, isTemplate } = req.query as unknown as {
@@ -17,7 +17,7 @@ export const listPlans = catchAsync(async (req: Request, res: Response) => {
 
 export const createPlan = catchAsync(async (req: Request, res: Response) => {
   const plan = await planService.createPlan(req.user!.id, req.body);
-  await evaluateAchievementsForUser(req.user!.id, req.user!.timezone);
+  evaluateAchievementsInBackground(req.user!.id, req.user!.timezone);
   sendSuccess(res, plan, "Plan created", 201);
 });
 

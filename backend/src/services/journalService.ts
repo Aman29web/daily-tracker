@@ -1,7 +1,7 @@
 import { JournalEntry, IJournalEntry } from "../models/JournalEntry";
 import { MoodEntry } from "../models/MoodEntry";
 import { ApiError } from "../utils/ApiError";
-import { evaluateAchievementsForUser } from "./achievementService";
+import { evaluateAchievementsInBackground } from "./achievementService";
 import { todayInTimezone } from "../utils/dateUtils";
 
 /**
@@ -42,7 +42,7 @@ export async function upsertJournalEntry(
   }
 
   if (isNew) {
-    await evaluateAchievementsForUser(userId, timezone);
+    evaluateAchievementsInBackground(userId, timezone);
   }
 
   return entry;

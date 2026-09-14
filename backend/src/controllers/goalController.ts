@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { catchAsync } from "../utils/catchAsync";
 import { buildPagination, sendSuccess } from "../utils/ApiResponse";
 import * as goalService from "../services/goalService";
-import { evaluateAchievementsForUser } from "../services/achievementService";
+import { evaluateAchievementsInBackground } from "../services/achievementService";
 import { todayInTimezone } from "../utils/dateUtils";
 
 export const listGoals = catchAsync(async (req: Request, res: Response) => {
@@ -31,13 +31,13 @@ export const createGoal = catchAsync(async (req: Request, res: Response) => {
 
 export const updateGoal = catchAsync(async (req: Request, res: Response) => {
   const goal = await goalService.updateGoal(req.user!.id, req.params.id, req.body);
-  if (req.body.status === "completed") await evaluateAchievementsForUser(req.user!.id, req.user!.timezone);
+  if (req.body.status === "completed") evaluateAchievementsInBackground(req.user!.id, req.user!.timezone);
   sendSuccess(res, goal, "Goal updated");
 });
 
 export const setGoalProgress = catchAsync(async (req: Request, res: Response) => {
   const goal = await goalService.setGoalProgress(req.user!.id, req.params.id, req.body.currentValue);
-  if (goal.status === "completed") await evaluateAchievementsForUser(req.user!.id, req.user!.timezone);
+  if (goal.status === "completed") evaluateAchievementsInBackground(req.user!.id, req.user!.timezone);
   sendSuccess(res, goal, "Progress updated");
 });
 

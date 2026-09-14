@@ -6,7 +6,7 @@ import { addDays, enumerateDates, todayInTimezone } from "../utils/dateUtils";
 import { resolveDayStatus, DayStatusResult, PauseRange } from "./dayStatusService";
 import { computeHabitStreak, StreakResult } from "./streakService";
 import { getPauseRangesForHabit, getPauseRangesFromMap, getUserPauseMap } from "./pauseService";
-import { evaluateAchievementsForUser } from "./achievementService";
+import { evaluateAchievementsInBackground } from "./achievementService";
 
 export async function getOwnedHabit(userId: string, habitId: string): Promise<IHabit> {
   const habit = await Habit.findOne({ _id: habitId, userId });
@@ -201,7 +201,7 @@ export async function performCheckIn(
   const streak = computeHabitStreak(habit, today, pauseRanges, checkIns);
 
   if (dayResult.status === "completed") {
-    await evaluateAchievementsForUser(userId, timezone);
+    evaluateAchievementsInBackground(userId, timezone);
   }
 
   return { habit, day: dayResult, streak };
@@ -267,6 +267,8 @@ export function buildPauseRangesLite(ranges: PauseRange[]) {
   return ranges;
 }
 
+export type HabitDateStatus = { habit: IHabit } & DayStatusResult;
+
 /**
  * Bulk day-status resolution for every active habit a user has, on one
  * date - the building block for the daily productivity score and the
@@ -277,7 +279,7 @@ export async function getUserHabitStatusesForDate(
   userId: string,
   date: string,
   timezone: string
-): Promise<Array<{ habit: IHabit } & DayStatusResult>> {
+): Promise<HabitDateStatus[]> {
   const today = todayInTimezone(timezone);
   const habits = await Habit.find({
     userId,

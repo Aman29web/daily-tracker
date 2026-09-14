@@ -15,6 +15,7 @@ import { ACHIEVEMENT_CATALOG } from "./achievementCatalog";
 import { timeInTimezone, todayInTimezone } from "../utils/dateUtils";
 import { NotificationService } from "../notifications/NotificationService";
 import { User } from "../models/User";
+import { logger } from "../config/logger";
 
 export async function ensureAchievementCatalog(): Promise<void> {
   await Promise.all(
@@ -169,6 +170,22 @@ export async function evaluateAchievementsForUser(userId: string, timezone: stri
     }
   }
   return newlyUnlocked;
+}
+
+/**
+ * Fire-and-forget wrapper for hot paths (check-in, task/journal/goal/plan
+ * completion) that must respond to the user immediately - `evaluateAchievementsForUser`
+ * loops every locked achievement and, for a "streak_days" one, recomputes
+ * every habit's streak from scratch, which is far too heavy to make someone
+ * wait on before their tap is even confirmed. Nothing in any of those
+ * responses depends on this call's result (unlocks surface later through
+ * the separate achievements/notifications endpoints), so it's safe to let
+ * it finish after the response goes out. Errors are logged, never thrown.
+ */
+export function evaluateAchievementsInBackground(userId: string, timezone: string): void {
+  void evaluateAchievementsForUser(userId, timezone).catch((err) =>
+    logger.error("Background achievement evaluation failed", { err, userId })
+  );
 }
 
 export async function evaluateAchievementsForAllUsers(): Promise<number> {

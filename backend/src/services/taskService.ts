@@ -3,7 +3,7 @@ import { Task, ITask } from "../models/Task";
 import { ApiError } from "../utils/ApiError";
 import { todayInTimezone } from "../utils/dateUtils";
 import { recalculateGoalProgress } from "./goalService";
-import { evaluateAchievementsForUser } from "./achievementService";
+import { evaluateAchievementsInBackground } from "./achievementService";
 
 export async function getOwnedTask(userId: string, taskId: string): Promise<ITask> {
   const task = await Task.findOne({ _id: taskId, userId });
@@ -35,7 +35,7 @@ export async function updateTask(
     await recalculateGoalProgress(userId, task.goalId.toString());
   }
   if (becomingCompleted) {
-    await evaluateAchievementsForUser(userId, timezone);
+    evaluateAchievementsInBackground(userId, timezone);
   }
   return task;
 }

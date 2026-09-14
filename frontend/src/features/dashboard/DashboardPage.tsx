@@ -220,7 +220,6 @@ function DashboardHabitRow({ habit, date }: { habit: DashboardData["habits"][num
       onSkip={() => checkIn.mutate({ date: effectiveDate, action: "skip" })}
       onMiss={() => checkIn.mutate({ date: effectiveDate, action: "miss" })}
       onIncrement={(delta) => checkIn.mutate({ date: effectiveDate, action: "increment", value: delta })}
-      disabled={checkIn.isPending}
     />
   );
 }
